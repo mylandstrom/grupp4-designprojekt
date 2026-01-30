@@ -1,0 +1,50 @@
+// =============================================================================
+// DEVCONTAINER.JSON - Konfiguration för VS Code Dev Container
+// =============================================================================
+// Den här filen talar om för VS Code hur utvecklingsmiljön ska fungera.
+// Den läses automatiskt när du öppnar projektet i Codespaces.
+// =============================================================================
+{
+  // Namn som visas i VS Code
+  "name": "PHP with MySQL",
+  // Vilken docker-compose-fil som ska användas
+  "dockerComposeFile": "docker-compose.yml",
+  // Vilken tjänst från docker-compose som VS Code ska ansluta till
+  "service": "app",
+  // Mappen där din kod finns i containern
+  "workspaceFolder": "/workspace",
+  // Installerar Node.js via devcontainer features (mer stabilt än manuell installation)
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  // VS Code-specifika inställningar
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // Sökväg till PHP för validering
+        "php.validate.executablePath": "/usr/local/bin/php",
+        // Formatera automatiskt när du sparar
+        "editor.formatOnSave": true,
+        // Antal mellanslag per tab
+        "editor.tabSize": 4
+      }
+    }
+  },
+  // Portar som ska vara tillgängliga i webbläsaren
+  // Klicka på PORTS-fliken i VS Code för att öppna dem
+  "forwardPorts": [
+    3000, // PHP-appen - din webbplats
+    8080 // phpMyAdmin - databashantering
+  ],
+  // Etiketter för portarna (visas i PORTS-fliken)
+  "portsAttributes": {
+    "3000": {
+      "label": "PHP App" // Din webbplats
+    },
+    "8080": {
+      "label": "phpMyAdmin" // Databasverktyg
+    }
+  }
+}

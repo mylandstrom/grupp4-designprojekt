@@ -1,0 +1,79 @@
+# =============================================================================
+# DOCKER COMPOSE - Konfigurerar alla tjänster som körs tillsammans
+# =============================================================================
+# Den här filen startar tre sammankopplade tjänster:
+# 1. webbplats    - Din PHP-webbserver (port 3000)
+# 2. mysql        - Databasen som lagrar data (port 3306)
+# 3. phpmyadmin   - Webbgränssnitt för att hantera databasen (port 8080)
+# =============================================================================
+
+version: "3.8"
+
+services:
+  # ---------------------------------------------------------------------------
+  # APP - PHP-webbservern där din kod körs
+  # ---------------------------------------------------------------------------
+  app:
+    build:
+      context: .                    # Bygg från nuvarande mapp
+      dockerfile: Dockerfile        # Använd vår Dockerfile
+    volumes:
+      - ..:/workspace:cached        # Synkar din kod till containern
+    command: php -S 0.0.0.0:3000 -t /workspace  # Startar PHP:s inbyggda webbserver
+    working_dir: /workspace         # Arbetsmapp i containern
+    ports:
+      - "3000:3000"                 # Gör port 3000 tillgänglig
+    depends_on:
+      - mysql                       # Väntar på att MySQL startar först
+      - phpmyadmin
+    networks:
+      - dev-network                 # Ansluter till det interna nätverket
+
+  # ---------------------------------------------------------------------------
+  # MYSQL - Databasservern
+  # ---------------------------------------------------------------------------
+  mysql:
+    image: mysql:8.0               # Använder officiella MySQL 8.0
+    restart: unless-stopped        # Startar om automatiskt vid krasch
+    environment:
+      # Databasinställningar - använd dessa i din PHP-kod
+      MYSQL_ROOT_PASSWORD: root    # Lösenord för root-användaren
+      MYSQL_DATABASE: mydb         # Skapar en databas med detta namn
+      MYSQL_USER: user             # Skapar en användare
+      MYSQL_PASSWORD: password     # Lösenord för användaren
+    ports:
+      - "3306:3306"                # MySQL:s standardport
+    volumes:
+      - mysql-data:/var/lib/mysql  # Sparar data även när containern stängs
+    networks:
+      - dev-network
+
+  # ---------------------------------------------------------------------------
+  # PHPMYADMIN - Webbgränssnitt för databasen
+  # ---------------------------------------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin:latest       # Senaste versionen av phpMyAdmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql              # Ansluter till mysql-containern
+      PMA_PORT: 3306
+      PMA_USER: root               # Loggar in automatiskt som root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"                  # Tillgänglig på port 8080
+    depends_on:
+      - mysql
+    networks:
+      - dev-network
+
+# =============================================================================
+# VOLYMER - Bevarar data mellan omstarter
+# =============================================================================
+volumes:
+  mysql-data:                      # Databasfilerna sparas här
+
+# =============================================================================
+# NÄTVERK - Låter containrarna kommunicera internt
+# =============================================================================
+networks:
+  dev-network:                     # Alla tjänster delar detta nätverk
