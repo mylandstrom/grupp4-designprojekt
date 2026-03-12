@@ -1,0 +1,36 @@
+/*Elins CSS till browse.php*/
+
+/*Stilsättning för bilder i karusellen och korten*/
+img:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/*Stilsättning för karusellens bilder och kontroller*/
+.carousel img {
+    padding: 4px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    opacity: 1;
+}
+
+/*Stilsättning för korten som visar designerportföljerna*/
+.card {
+    border: none;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 60px;
+}
+
+.card {
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
