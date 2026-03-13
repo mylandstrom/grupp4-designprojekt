@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="sv">
 
+
 <head>
     <meta charset="UTF-8">
     <title>Profolio</title>
@@ -11,24 +12,34 @@
     <!--Custom styles-->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+<!--Hanterar felmeddelanden s.86 -->
 
 <body>
-    <form action="auth.php" method="post" class="login>
+    <?php
+    if (count($errors) > 0) {
+        echo '
+        <ul>
+        <li>' . implode('</li><li>', $errors) . '</li>
+        </ul>';
+    }
+    ?>
+
+    <form action="auth.php" method="post">
         <fieldset>
-            <legend>Ange inloggningsuppgifter</legend>
+            <legend>Submit login details</legend>
             <ol>
                 <div>
-                    <label for=" email">E-post</label>
-        <input name="email" type="text">
-        </div>
-        <div>
-            <label for="password">Lösenord</label>
-            <input name="password" type="password">
-            //password för att man inte ska kunna se lösenordet när man skriver ut det.
-        </div>
-        </ol>
+                    <label for="email">E-post</label>
+                    <input name="email" type="text">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input name="password" type="password">
+                    <!--password för att man inte ska kunna se lösenordet när man skriver ut det-->
+                </div>
+            </ol>
         </fieldset>
-        <input type="submit" name="submit" value="Logga in"
+        <input type="submit" name="submit" value="Login">
     </form>
 </body>
 
