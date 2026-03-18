@@ -1,7 +1,8 @@
 <!-- funktion av att kunna logga in-->
 <?php
-require_once    'login.php';
+require_once 'assets/functions/session.login.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
