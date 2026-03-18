@@ -35,7 +35,7 @@ require_once 'assets/includes/display_errors.php';
                 <button class="position-absolute top-50 translate-middle-y border-0"
                     style="left: -50px; z-index: 10; background: none; cursor: pointer;"
                     onclick="document.getElementById('cardsContainer').scrollLeft -= 370">
-                    <!-- On click: scroll 370px to the left -->
+                    <!-- On click: scroll 370px to the left --!>
                     <i class="fa-solid fa-chevron-left fa-2x"></i>
                     <!-- left: -50px moves the button 50px outside to the left -->
                     <!-- top-50 translate-middle-y centers the button vertically -->
