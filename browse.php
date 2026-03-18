@@ -1,4 +1,6 @@
 <?php
+// Include header
+require_once 'assets/includes/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -248,6 +250,10 @@
                     <!-- Script till Bootstrap 5.3.2, som behövs för att karusellen ska fungera. -->
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+
 </body>
 
+
 </html>
+
+<?php require_once 'assets/includes/footer.php'; ?>
