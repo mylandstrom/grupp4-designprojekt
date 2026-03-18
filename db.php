@@ -37,8 +37,7 @@ try {
     // Skapa anslutningen
     $dbh = new PDO($dsn, DB_USER, DB_PASS, $options);
 
-    // Visa meddelande om anslutningen lyckades
-    echo 'Anslutningen till databasen lyckades!';
+    // Anslutningen lyckades - inget meddelande visas
 } catch (PDOException $e) {
     // Visa felmeddelande om något gick fel
     die("Kunde inte ansluta till databasen.");
