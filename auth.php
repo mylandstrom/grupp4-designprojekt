@@ -1,5 +1,6 @@
 <!-- funktion av att kunna logga in-->
 <?php
+require_once 'assets/functions/session.login.php';
 require_once    'login.php';
 //include database connection
 require_once 'db.php';
@@ -8,6 +9,7 @@ require_once 'assets/includes/display_errors.php';
 //include header 
 require_once 'assets/includes/header.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

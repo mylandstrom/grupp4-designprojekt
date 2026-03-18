@@ -38,8 +38,8 @@
             ?>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-2">
-                    <a href="index.php" class="nav-link <?php echo ($current_page == 'index.php') ? 'active text-white' : ''; ?>"
-                        style="<?php echo ($current_page == 'index.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
+                    <a href="browse.php" class="nav-link <?php echo ($current_page == 'browse.php') ? 'active text-white' : ''; ?>"
+                        style="<?php echo ($current_page == 'browse.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
                         Portfolios
                     </a>
                 </li>
@@ -50,8 +50,8 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a href="about.php" class="nav-link <?php echo ($current_page == 'about.php') ? 'active text-white' : ''; ?>"
-                        style="<?php echo ($current_page == 'about.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
+                    <a href="auth.php" class="nav-link <?php echo ($current_page == 'auth.php') ? 'active text-white' : ''; ?>"
+                        style="<?php echo ($current_page == 'auth.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
                         Log in
                     </a>
                 </li>
