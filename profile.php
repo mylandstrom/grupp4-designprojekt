@@ -9,77 +9,14 @@ require_once 'assets/includes/display_errors.php';
 //include header 
 require_once 'assets/includes/header.php';
 
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['user_id']);
 ?>
 
-<!DOCTYPE html>
-<html lang="sv">
 
-<head>
-    <meta charset="utf-8">
-    <title>Profile</title>
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!--Font Awesome CSS-->
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <!--Custom styles-->
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-<body>
-
-    <header class="p-1">
-        <div class="container">
-            <nav class="navbar navbar-expand-md">
-                <a href="index.php" class="navbar-brand">
-                    <i class="fa-solid fa-briefcase"></i>
-                    <span class="ms-0">Profolio</span>
-                </a>
-
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="profile.php">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                </ul>
-                <form class="d-flex">
-                    <input type="search" class="form-control mx-2" placeholder="Search for...">
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-                <div class="dropdown">
-  
-                    <?php if ($isLoggedIn): ?>
-                    <!-- Logged-in view: Profile settings dropdown -->
-                    <div class="dropdown ms-2">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="assets/images/profile-pic.jpg" alt="Profile picture" width="20" height="20" class="rounded-circle mb-auto">
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-    <li><a class="dropdown-item" href="#">Edit</a></li>
-    <li><a class="dropdown-item" href="#">Account Settings</a></li>
-  </ul>
-</div>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
-                        </ul>
-                    </div>
-                <?php else: ?>
-                    <!-- Guest view: Log in -->
-                    <a href="login.php" class="btn btn-outline-primary ms-2">Log in</a>
-                <?php endif; ?>
-
-            </nav>
-        </div>
-    </header>
 
     <main>
         <div class="container-fluid p-0">
             <img src="assets/images/header.jpg" alt="Abstract illustration." class="img-fluid w-100" style="height: 300px; object-fit: cover;">
         </div>
-
-
 
         <section class="container my-4">
             <div class="row">
@@ -93,16 +30,15 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <p><i class="fa-solid fa-location-dot"></i><span class="ms-1">Brooklyn, New York</span></p>
 
                     
-                        <?php if ($isLoggedIn): ?>
+                        
                         <!-- Logged-in view: Show edit button -->
                         <button class="btn btn-secondary mt-3">Edit Profile</button>
-                    <?php else: ?>
+                 
                         <!-- Guest view: Follow -->
                         <div class="mt-3" role="alert">
                             <a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i><span class="ms-1">Follow</span></a>
                             <a href="#" class="btn btn-primary"><i class="fa-solid fa-envelope"></i><span class="ms-1">Contact</span></a>
                         </div>
-                    <?php endif; ?>
                     
                     
                 </div>
@@ -293,33 +229,3 @@ $isLoggedIn = isset($_SESSION['user_id']);
     //include footern
     require_once 'assets/includes/footer.php';
     ?>
-    <footer class="bg-dark text-white py-4">
-<section class="row container mx-auto">
-    <div class="col-md-12 d-flex justify-content-between">
-        <a href="index.php"> <img src="assets/images/profile-pic.jpg" alt="Profolio logo" class="mb-3" width="100" height="100"></a>
-        <ul class="list-unstyled">
-            <p>For designers</p>
-            <li><a href="#" class="text-white">How it works</a></li>
-            <li><a href="#" class="text-white">Pricing</a></li>
-            <li><a href="#" class="text-white">Resources</a></li>
-        </ul>
-        <ul class="list-unstyled">
-            <p>For employers</p>
-            <li><a href="#" class="text-white">How it works</a></li>
-            <li><a href="#" class="text-white">Pricing</a></li>
-            <li><a href="#" class="text-white">Resources</a></li>
-        </ul>
-    </div>
-    </section>
-        <div class="container d-flex justify-content-between border-top">
-            <p class="pt-3">&copy; 2026 Profolio. All rights reserved.</p>
-            <div class="pt-3">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
-</body>
-
-</html>
