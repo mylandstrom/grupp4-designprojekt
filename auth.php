@@ -1,10 +1,12 @@
+<!-- funktion av att kunna logga in-->
+<?php
+require_once    'login.php';
+?>
 <!DOCTYPE html>
-<html lang="sv">
-
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profolio</title>
+    <title>Profolio - Login</title>
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!--Font Awesome CSS-->
@@ -12,23 +14,24 @@
     <!--Custom styles-->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<!--Hanterar felmeddelanden s.86 -->
-
 <body>
-    <?php
-    if (count($errors) > 0) {
-        echo '
-        <ul>
-        <li>' . implode('</li><li>', $errors) . '</li>
-        </ul>';
-    }
-    ?>
 
-    <form action="auth.php" method="post">
-        <fieldset>
-            <legend>Submit login details</legend>
-            <ol>
-                <div>
+    <main>
+        <!-- Hero section -->
+        <section class="hero">
+            <div class="container"> 
+                <h1 class="display-4">Welcome to Profolio</h1>
+                <p class="lead">Your personal portfolio management tool for networking amongst creative designers!</p>
+            </div>
+        </section>  
+        <!-- s. 80, inloggningsformulär i "Webbutveckling med PHP och MySQL-->
+        <section>
+            <div class="login">
+                <form action="index.php"  method="post">
+                    <fieldset>
+                        <legend>Sign in to Profolio<legend>
+                                <li>
+                                    <div>
                     <label for="email">E-post</label>
                     <input name="email" type="text">
                 </div>
@@ -37,10 +40,9 @@
                     <input name="password" type="password">
                     <!--password för att man inte ska kunna se lösenordet när man skriver ut det-->
                 </div>
-            </ol>
         </fieldset>
-        <input type="submit" name="submit" value="Login">
+        <input type="submit" name="submit" value="Sign in">
     </form>
 </body>
-
 </html>
+
