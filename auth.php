@@ -1,13 +1,14 @@
 <!-- funktion av att kunna logga in-->
 <?php
-require_once 'assets/functions/session.login.php';
-require_once    'login.php';
+session_start();
 //include database connection
 require_once 'db.php';
 //showing errors
 require_once 'assets/includes/display_errors.php';
 //include header 
 require_once 'assets/includes/header.php';
+//login data to database
+require_once 'assets/functions/session.login.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@ require_once 'assets/includes/header.php';
                 <form action="index.php"  method="post">
                     <fieldset>
                         <legend>Sign in to Profolio<legend>
-                                <li>
+                        
                                     <div>
                     <label for="email">E-post</label>
                     <input name="email" type="text">
@@ -51,6 +52,10 @@ require_once 'assets/includes/header.php';
         </fieldset>
         <input type="submit" name="submit" value="Sign in">
     </form>
+    <?php
+    require_once 'assets/functions/session.login.php';
+    require_once 'assets/includes/footer.php';
+    ?>
 </body>
 </html>
 
