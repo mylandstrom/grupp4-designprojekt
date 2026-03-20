@@ -1,6 +1,19 @@
 <?php
-// Include header
+// browse.php - Page to browse designer portfolios
 require_once 'assets/includes/header.php';
+require_once 'db.php';
+
+// Get all designers
+$stmt = $dbh->prepare("SELECT * FROM designers");
+$stmt->execute();
+$designers = $stmt->fetchAll();
+
+// Get projects for each designer
+foreach ($designers as $index => $designer) {
+    $stmt2 = $dbh->prepare("SELECT image FROM projects WHERE designer_id = ?");
+    $stmt2->execute([$designer['id']]);
+    $designers[$index]['projects'] = $stmt2->fetchAll(PDO::FETCH_COLUMN);
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,19 +27,13 @@ require_once 'assets/includes/header.php';
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<!-- En container som innehåller en rubrik för sidan.--->
-
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Browse portfolios</h2>
-        <div class="d-flex justify-content-between mb-4">
-        </div>
 
-        <!-- En container som innehåller en sökfunktion och en knapp för att filtrera resultaten.--->
+        <!-- Search and filter -->
         <div class="d-flex mb-4">
             <input class="form-control flex-grow-1 me-3" type="search" placeholder="Search designers">
-
-            <!-- Dropdown istället för vanlig knapp -->
             <div class="dropdown">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Filter
@@ -40,220 +47,58 @@ require_once 'assets/includes/header.php';
             </div>
         </div>
 
-        <!-- En kort beskrivning av varje designer i en kort, med en bild, namn, yrke och en knapp för att kontakta dem. -->
-        <div class="card mb-5 p-3">
-            <div class="d-flex align-items-center mb-4">
-                <img src="https://via.placeholder.com/50" class="rounded-circle me-3">
-                <div>
-                    <h5 class="mb-0">Jane Doe</h5>
-                    <small class="text-muted">UI/UX Designer</small>
-                </div>
-                <button class="btn btn-sm btn-dark ms-auto">Contact</button>
-            </div>
-
-            <!-- En bootstrap karusell -->
-            <div id="portfolioSlider1" class="carousel slide mt-3">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="row">
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300/ff4444" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300/00C851" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300/33b5e5" class="d-block w-100 rounded">
-                            </div>
-
-                            <div class="col-md-3">
-                                <img src="https://via.placeholder.com/300/2BBBAD" class="d-block w-100 rounded">
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Knappar för att navigera mellan karusellens slides. -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
-            </div>
-
-            <!-- En kort beskrivning av varje designer i en kort, med en bild, namn, yrke och en knapp för att kontakta dem. -->
+        <!-- Loop designers -->
+        <?php foreach ($designers as $designer): ?>
             <div class="card mb-5 p-3">
                 <div class="d-flex align-items-center mb-4">
-                    <img src="https://via.placeholder.com/50" class="rounded-circle me-3">
+                    <img src="<?= $designer['profile_image']; ?>" class="rounded-circle me-3" style="width:60px; height:60px; object-fit:cover;">
                     <div>
-                        <h5 class="mb-0">Jane Doe</h5>
-                        <small class="text-muted">UI/UX Designer</small>
+                        <h5 class="mb-0"><?= $designer['name']; ?></h5>
+                        <small class="text-muted"><?= $designer['role']; ?></small>
                     </div>
-                    <button class="btn btn-sm btn-dark ms-auto">Contact</button>
+                    <button class="btn btn-dark btn-sm ms-auto">Contact</button>
                 </div>
 
-                <!-- En bootstrap karusell -->
-                <div id="portfolioSlider1" class="carousel slide mt-3">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                </div>
-
+                <!-- Pictures -->
+                <div class="row g-2">
+                    <?php if (!empty($designer['projects'])): ?>
+                        <?php foreach ($designer['projects'] as $img): ?>
+                            <div class="col-3">
+                                <img src="<?= $img; ?>" class="img-fluid project-img" alt="Project image" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="<?= $img; ?>">
                             </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-3">
+                            <img src="assets/images/placeholder.png" class="img-fluid project-img" alt="No project" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="assets/images/placeholder.png">
                         </div>
-
-                        <div class="carousel-item">
-                            <div class="row">
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300/ff4444" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300/00C851" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300/33b5e5" class="d-block w-100 rounded">
-                                </div>
-
-                                <div class="col-md-3">
-                                    <img src="https://via.placeholder.com/300/2BBBAD" class="d-block w-100 rounded">
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Knappar för att navigera mellan karusellens slides. -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-
-                    <button class="carousel-control-next" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+                    <?php endif; ?>
                 </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
-                <!-- En kort beskrivning av varje designer i en kort, med en bild, namn, yrke och en knapp för att kontakta dem. -->
-                <div class="card mb-5 p-3">
-                    <div class="d-flex align-items-center mb-4">
-                        <img src="https://via.placeholder.com/50" class="rounded-circle me-3">
-                        <div>
-                            <h5 class="mb-0">Jane Doe</h5>
-                            <small class="text-muted">UI/UX Designer</small>
-                        </div>
-                        <button class="btn btn-sm btn-dark ms-auto">Contact</button>
-                    </div>
+    <!-- Modal for image preview -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <img id="modalImage" src="" class="img-fluid" alt="Project large">
+            </div>
+        </div>
+    </div>
 
-                    <!-- En bootstrap karusell -->
-                    <div id="portfolioSlider1" class="carousel slide mt-3">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="row">
+    <!-- Bootstrap JS and custom script, for the modal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modal.addEventListener('show.bs.modal', event => {
+            const img = event.relatedTarget.getAttribute('data-img');
+            modalImage.src = img;
+        });
+    </script>
 
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300" class="d-block w-100 rounded">
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300/ff4444" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300/00C851" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300/33b5e5" class="d-block w-100 rounded">
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <img src="https://via.placeholder.com/300/2BBBAD" class="d-block w-100 rounded">
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- Knappar för att navigera mellan karusellens slides. -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-
-                        <button class="carousel-control-next" type="button" data-bs-target="#portfolioSlider1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-
-                    <!-- Script till Bootstrap 5.3.2, som behövs för att karusellen ska fungera. -->
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
+    <!-- Footer -->
+    <?php require_once 'assets/includes/footer.php'; ?>
 </body>
 
-
 </html>
-
-<?php require_once 'assets/includes/footer.php'; ?>
