@@ -1,34 +1,14 @@
-/* HEADER */
+/*Elins browse.php for the project images, hover and click effects*/
 
-/*Elins CSS till browse.php*/
-
-/*Stilsättning för bilder i karusellen och korten*/
-img:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
+.project-img {
     cursor: pointer;
+    object-fit: cover;
+    height: 250px;
+    width: 100%;
+    transition: transform 0.2s, filter 0.2s;
 }
 
-/*Stilsättning för karusellens bilder och kontroller*/
-.carousel img {
-    padding: 4px;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    filter: invert(1);
-    opacity: 0.8;
-}
-
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-    opacity: 1;
-}
-
-/*Stilsättning för korten som visar designerportföljerna*/
-.card {
-    border: none;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    margin-top: 20px;
-    margin-bottom: 60px;
+.project-img:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
 }
