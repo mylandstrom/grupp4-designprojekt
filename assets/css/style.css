@@ -32,3 +32,64 @@ img:hover {
     margin-top: 20px;
     margin-bottom: 60px;
 }
+
+/*Elsas CSS till auth.php*/
+
+/*Stilsättning för inloggningsformuläret*/
+/*Hero-sektionen*/
+.hero {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.container {
+    align-items: center;
+    display: center;
+    justify-content: center;
+
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 3rem;
+    border-radius: 10px;
+    background-color: #fff;
+    align-items: center;
+}
+
+.form-group {
+    padding: 1rem;
+    text-align: left;
+}
+
+/*Stilsättning för inloggningsknappen*/
+.btn-signin {
+    background-color: #7e1f86;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+}
+
+/*animering för hover på inloggningsknappen*/
+.btn-signin:hover {
+    color: #5a1460;
+    background-color:white;
+    transition-duration: 300ms;
+
+}
+/*Stilsättning för inloggningssektionen */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-bottom: 5rem;
+}

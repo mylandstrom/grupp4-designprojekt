@@ -1,10 +1,9 @@
 <?php
 //  initerar sessionshantering s. 82-85 i Kurslitteratur
-session_start();
 if (isset($_POST['login'])) {
     $errors  =  array();
     if (
-        empty($_POST['email'])) || 
+        empty($_POST['email']) || 
         empty($_POST['password'])
     ) {
    header('Location: ../../index.php?action=empty');
@@ -45,9 +44,9 @@ exit();
 ?>
 <?php
 // Checks if an action is set
-if (isset($_GET[action])) {
+if (isset($_GET['action'])) {
 // Checks which action is set
-switch ($_GET[action]) {
+switch ($_GET['action']) {
 case 'empty':
 echo '
 <div class="alert alert-warning">
