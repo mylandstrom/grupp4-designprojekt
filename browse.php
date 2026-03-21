@@ -56,7 +56,10 @@ foreach ($designers as $index => $designer) {
                         <h5 class="mb-0"><?= $designer['name']; ?></h5>
                         <small class="text-muted"><?= $designer['role']; ?></small>
                     </div>
-                    <button class="btn btn-dark btn-sm ms-auto">Contact</button>
+                    <!-- Contact Button -->
+                    <button class="btn btn-dark btn-sm ms-auto">
+                        <a href="contact.php?designer_id=<?= $designer['id']; ?>" style="color:white; text-decoration:none;">Contact</a>
+                    </button>
                 </div>
 
                 <!-- Pictures -->

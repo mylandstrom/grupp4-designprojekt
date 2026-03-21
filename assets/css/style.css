@@ -12,3 +12,9 @@
     transform: scale(1.05);
     filter: brightness(0.9);
 }
+
+/*Elins for the contact.php page, form styling*/
+
+.contact-page {
+    margin-bottom: 100px;
+}
