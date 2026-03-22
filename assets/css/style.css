@@ -1,5 +1,21 @@
 /*Elins browse.php for the project images, hover and click effects*/
 
+.browse-page .container {
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+}
+
+.browse-page .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Justera card */
+.browse-page .card {
+    margin-top: 0;
+}
+
 .project-img {
     cursor: pointer;
     object-fit: cover;
@@ -18,6 +34,19 @@
     margin-bottom: 100px;
 }
 
+.contact-wrapper .container {
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+}
+
+.contact-wrapper .contact-page {
+    margin-bottom: 100px;
+}
+
+.contact-wrapper .form-control {
+    max-width: 100%;
+}
 
 /*Stilsättning för korten som visar designerportföljerna*/
 .card {

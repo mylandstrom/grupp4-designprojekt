@@ -33,32 +33,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- Form to contact a designer -->
+<!-- ✅ WRAPPER SOM SKYDDAR KONTAKTFORMULÄRET -->
+<div class="contact-wrapper">
+    <div class="container mt-5 contact-page">
+        <h2>Contact <?= htmlspecialchars($designer['name']); ?></h2>
 
-<div class="container mt-5 contact-page">
-    <h2>Contact <?= htmlspecialchars($designer['name']); ?></h2>
-
-    <?php if ($messageSent): ?>
-        <div class="alert alert-success">Meddelandet skickades!</div>
-        <a href="browse.php" class="btn btn-secondary">Tillbaka till Designers</a>
-    <?php else: ?>
-        <form method="POST">
-            <div class="mb-3">
-                <label for="name" class="form-label">Your Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Your Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="message" class="form-label">Your Message</label>
-                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
-            <a href="browse.php" class="btn btn-secondary">Cancel</a>
-        </form>
-    <?php endif; ?>
+        <?php if ($messageSent): ?>
+            <div class="alert alert-success">Meddelandet skickades!</div>
+            <a href="browse.php" class="btn btn-secondary">Tillbaka till Designers</a>
+        <?php else: ?>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <a href="browse.php" class="btn btn-secondary">Cancel</a>
+            </form>
+        <?php endif; ?>
+    </div>
 </div>
 
 <?php require_once 'assets/includes/footer.php'; ?>
