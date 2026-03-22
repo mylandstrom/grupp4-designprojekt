@@ -14,6 +14,10 @@
 }
 
 /*Elins for the contact.php page, form styling*/
+.contact-page {
+    margin-bottom: 100px;
+}
+
 
 /*Stilsättning för korten som visar designerportföljerna*/
 .card {
@@ -72,10 +76,11 @@ fieldset {
 /*animering för hover på inloggningsknappen*/
 .btn-signin:hover {
     color: #5a1460;
-    background-color:white;
+    background-color: white;
     transition-duration: 300ms;
 
 }
+
 /*Stilsättning för inloggningssektionen */
 .login-form {
     max-width: 400px;
@@ -83,6 +88,7 @@ fieldset {
     padding: 2rem;
     padding-bottom: 5rem;
 }
+
 .contact-page {
     margin-bottom: 100px;
 }
