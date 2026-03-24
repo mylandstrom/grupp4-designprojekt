@@ -44,11 +44,13 @@ require_once 'assets/includes/header.php';
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <br>
-                            <input name="email" type="text">
+                            <!-- Required email input to prevent empty submit -->
+                            <input id="email" name="email" type="email" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input name="password" type="password">
+                            <!-- Required password input to prevent empty submit -->
+                            <input id="password" name="password" type="password" required>
                             <!--password för att man inte ska kunna se lösenordet när man skriver ut det-->
                         </div>
                         <p>Don't have an account? <a href="register.php">Register here!</a></p>
