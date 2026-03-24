@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="sv">
 
@@ -35,6 +41,10 @@
             <?php
             // Highlight the current page in the navbar
             $current_page = basename($_SERVER['PHP_SELF']);
+            $is_logged_in = isset($_SESSION['user_id']);
+            $profile_link = isset($_SESSION['user_id']) ? 'profile.php?user_id=' . (int) $_SESSION['user_id'] : 'auth.php';
+            $auth_link = $is_logged_in ? 'logout.php' : 'auth.php';
+            $auth_label = $is_logged_in ? 'Log out' : 'Log in';
             ?>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-2">
@@ -47,12 +57,6 @@
                     <a href="job-listing.php" class="nav-link <?php echo ($current_page == 'job-listing.php') ? 'active text-white' : ''; ?>"
                         style="<?php echo ($current_page == 'job-listing.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
                         Job listing
-                    </a>
-                </li>
-                <li class="nav-item mx-2">
-                    <a href="auth.php" class="nav-link <?php echo ($current_page == 'auth.php') ? 'active text-white' : ''; ?>"
-                        style="<?php echo ($current_page == 'auth.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
-                        Log in
                     </a>
                 </li>
                 <li class="nav-item mx-2">
@@ -69,10 +73,17 @@
                 <button type="submit" class="btn btn-sm text-warning"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
             </form>
 
-            <!-- Profile button -->
-            <a href="profile.php" class="btn btn-sm ms-5">
-                <i class="fa-regular fa-circle-user display-6 text-white-50"></i>
-            </a>
+            <div class="d-flex align-items-center ms-4">
+                <a href="<?= htmlspecialchars($auth_link); ?>" class="nav-link me-3 <?php echo ($current_page == 'auth.php' || $current_page == 'logout.php') ? 'active text-white' : ''; ?>"
+                    style="<?php echo ($current_page == 'auth.php' || $current_page == 'logout.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
+                    <?= htmlspecialchars($auth_label); ?>
+                </a>
+
+                <!-- Profile button -->
+                <a href="<?= htmlspecialchars($profile_link); ?>" class="btn btn-sm">
+                    <i class="fa-regular fa-circle-user display-6 text-white-50"></i>
+                </a>
+            </div>
 
         </div>
     </nav>

@@ -9,6 +9,41 @@ require_once 'assets/includes/display_errors.php';
 //include header 
 require_once 'assets/includes/header.php';
 
+// Use ?user_id=... when viewing someone else's profile, otherwise show logged-in user profile.
+$requestedUserId = isset($_GET['user_id']) ? (int) $_GET['user_id'] : 0;
+$loggedInUserId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+$profileUserId = $requestedUserId > 0 ? $requestedUserId : $loggedInUserId;
+
+if ($profileUserId <= 0) {
+    header('Location: auth.php');
+    exit();
+}
+
+$stmt = $dbh->prepare('SELECT user_id, firstname, lastname, email, regdate FROM users WHERE user_id = :user_id');
+$stmt->bindValue(':user_id', $profileUserId, PDO::PARAM_INT);
+$stmt->execute();
+$profileUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$profileUser) {
+    header('Location: index.php');
+    exit();
+}
+
+$isOwnProfile = $loggedInUserId > 0 && $loggedInUserId === (int) $profileUser['user_id'];
+$profileName = trim(($profileUser['firstname'] ?? '') . ' ' . ($profileUser['lastname'] ?? ''));
+if ($profileName === '') {
+    $profileName = 'User #' . (int) $profileUser['user_id'];
+}
+
+$memberSince = '';
+if (!empty($profileUser['regdate'])) {
+    try {
+        $memberSince = (new DateTime($profileUser['regdate']))->format('Y-m-d');
+    } catch (Exception $e) {
+        $memberSince = '';
+    }
+}
+
 ?>
 
 
@@ -22,23 +57,29 @@ require_once 'assets/includes/header.php';
             <div class="row">
                 <div class="col-md-3">
                     <img src="assets/images/profile-pic.jpg" width="120" height="120" class="rounded-circle" alt="Profile picture">
-                    <h1 class="pt-3">Vincent Miller</h1>
+                    <h1 class="pt-3"><?= htmlspecialchars($profileName); ?></h1>
                     <p class="text-muted">
                         <i class="text-warning fa-solid fa-star"></i><span class="ms-1">4.8</span>
                     </p>
-                    <p><i class="fa-solid fa-pen"></i><span class="ms-1">Illustrator & Graphic Designer</span></p>
-                    <p><i class="fa-solid fa-location-dot"></i><span class="ms-1">Brooklyn, New York</span></p>
+                    <p><i class="fa-solid fa-pen"></i><span class="ms-1">Designer profile</span></p>
+                    <p><i class="fa-solid fa-envelope"></i><span class="ms-1"><?= htmlspecialchars($profileUser['email']); ?></span></p>
+                    <?php if ($memberSince !== ''): ?>
+                        <p><i class="fa-regular fa-calendar"></i><span class="ms-1">Member since <?= htmlspecialchars($memberSince); ?></span></p>
+                    <?php endif; ?>
 
                     
                         
                         <!-- Logged-in view: Show edit button -->
-                        <button class="btn btn-secondary mt-3">Edit Profile</button>
+                        <?php if ($isOwnProfile): ?>
+                            <a href="edit-profile.php" class="btn btn-secondary mt-3">Edit Profile</a>
+                        <?php else: ?>
                  
-                        <!-- Guest view: Follow -->
-                        <div class="mt-3" role="alert">
-                            <a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i><span class="ms-1">Follow</span></a>
-                            <a href="#" class="btn btn-primary"><i class="fa-solid fa-envelope"></i><span class="ms-1">Contact</span></a>
-                        </div>
+                            <!-- Guest view: Follow -->
+                            <div class="mt-3" role="alert">
+                                <a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i><span class="ms-1">Follow</span></a>
+                                <a href="mailto:<?= htmlspecialchars($profileUser['email']); ?>" class="btn btn-primary"><i class="fa-solid fa-envelope"></i><span class="ms-1">Contact</span></a>
+                            </div>
+                        <?php endif; ?>
                     
                     
                 </div>

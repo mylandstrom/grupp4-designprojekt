@@ -27,10 +27,22 @@ require_once 'assets/includes/header.php';
 
 <body>
 
-    <main>
+    <style>
+        /* Keep hero text centered like the register page without affecting other pages. (antog att den skulle vara centrerad:)*/
+        .login-page .login-hero {
+            text-align: center;
+        }
+
+        .login-page .login-hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <main class="login-page">
         <!-- Hero section -->
-        <section class="hero">
-            <div class="container">
+        <section class="hero login-hero">
+            <div class="login-hero-inner">
                 <h1 class="display-4">Welcome to Profolio</h1>
                 <p class="lead">Your personal portfolio management tool for networking amongst creative designers!</p>
             </div>
@@ -56,13 +68,13 @@ require_once 'assets/includes/header.php';
                         <p>Don't have an account? <a href="register.php">Register here!</a></p>
                         <input class="btn-signin" type="submit" name="login" value="Sign in">
                     </fieldset>
-                    
-</div>
-                </form>
 
-                <?php
-                require_once 'assets/includes/footer.php';
-                ?>
+            </div>
+            </form>
+
+            <?php
+            require_once 'assets/includes/footer.php';
+            ?>
 </body>
 
 </html>
