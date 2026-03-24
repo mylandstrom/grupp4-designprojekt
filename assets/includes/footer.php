@@ -1,5 +1,5 @@
 <footer class="footer bg-dark text-white py-5">
-  <div class="container">
+  <div class="container" style="display: block; align-items: initial; justify-content: initial;">
     <!-- Top section: logo and link columns -->
     <div class="row mb-4">
       <!-- Left column: logo -->
