@@ -1,10 +1,10 @@
-<footer class="footer bg-dark text-white py-5">
+<footer id="site-footer" class="footer bg-dark text-white py-5">
   <div class="container" style="display: block; align-items: initial; justify-content: initial;">
     <!-- Top section: logo and link columns -->
     <div class="row mb-4">
       <!-- Left column: logo -->
       <div class="col-md-3 overflow-hidden d-flex align-items-center" style="height: 120px;">
-        <img src="assets/Images/logo.white.png" alt="Profolio Logo" style="width: 120px; transform: scale(2); transform-origin: left center; margin-left: -30px;">
+        <img src="assets/images/logo.white.png" alt="Profolio Logo" style="width: 120px; transform: scale(2); transform-origin: left center; margin-left: -30px;">
       </div>
 
       <!-- Middle column: for designers -->

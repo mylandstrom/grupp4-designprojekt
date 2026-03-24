@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             <!-- Registration form -->
             <form action="register.php" method="post">
                 <fieldset>
-                    <legend class="form-label">Register to <img src="assets/Images/logo.gray.png" alt="Logo" width="80"> Today!</legend>
+                    <legend class="form-label">Register to <img src="assets/images/logo.gray.png" alt="Logo" width="80"> Today!</legend>
                     <!-- First name field -->
                     <div class="form-group">
                         <label for="register-first-name">First name</label>

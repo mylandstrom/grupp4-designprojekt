@@ -52,7 +52,7 @@ require_once 'assets/includes/header.php';
             <div class="login-form">
                 <form action="auth.php" method="post">
                     <fieldset>
-                        <legend class="form-label">Sign in to <img src="assets/Images/logo.gray.png" alt="Logo" width="80px"> Today!</legend>
+                        <legend class="form-label">Sign in to <img src="assets/images/logo.gray.png" alt="Logo" width="80px"> Today!</legend>
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <br>
