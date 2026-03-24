@@ -7,10 +7,18 @@ require_once 'db.php';
 require_once 'assets/includes/display_errors.php';
 ?>
 
-<main>
+<style>
+    main.index-page .container {
+        display: block;
+        align-items: initial;
+        justify-content: initial;
+    }
+</style>
+
+<main class="index-page">
     <!-- HERO SECTION -->
     <section class="hero text-center py-5" style="background-color: #dcd1db; font-family: Helvetica, sans-serif;">
-        <div class="container py-5">
+        <div class="container py-5 d-block">
             <h1 class="display-5 mb-3 fw-bold text-dark">
                 Need a creative professional?
             </h1>
@@ -20,7 +28,7 @@ require_once 'assets/includes/display_errors.php';
 
             <!-- BUTTONS -->
             <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #7e1f86; color: white;">Find designers <i class="fa-solid fa-angle-right"></i></a>
-            <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">List a job <i class="fa-solid fa-angle-right"></i></a>
+            <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">list a job <i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
 
@@ -35,7 +43,7 @@ require_once 'assets/includes/display_errors.php';
                 <button class="position-absolute top-50 translate-middle-y border-0"
                     style="left: -50px; z-index: 10; background: none; cursor: pointer;"
                     onclick="document.getElementById('cardsContainer').scrollLeft -= 370">
-                    <!-- On click: scroll 370px to the left --!>
+                    <!-- On click: scroll 370px to the left -->
                     <i class="fa-solid fa-chevron-left fa-2x"></i>
                     <!-- left: -50px moves the button 50px outside to the left -->
                     <!-- top-50 translate-middle-y centers the button vertically -->
