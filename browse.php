@@ -29,7 +29,7 @@ foreach ($designers as $index => $designer) {
 
 <body>
 
-    <!-- ✅ WRAPPER SOM SKYDDAR DIN SIDA -->
+    <!-- Protect browse page -->
     <div class="browse-page">
 
         <div class="container mt-5">
@@ -91,7 +91,7 @@ foreach ($designers as $index => $designer) {
             <?php endforeach; ?>
         </div>
 
-    </div> <!-- ✅ SLUT PÅ WRAPPER -->
+    </div>
 
     <!-- Modal for image preview -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">

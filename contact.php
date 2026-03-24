@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- ✅ WRAPPER SOM SKYDDAR KONTAKTFORMULÄRET -->
+<!-- Protect contact form -->
 <div class="contact-wrapper">
     <div class="container mt-5 contact-page">
         <h2>Contact <?= htmlspecialchars($designer['name']); ?></h2>
