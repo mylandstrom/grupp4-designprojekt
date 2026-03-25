@@ -3,7 +3,7 @@
 /*Elins CSS till browse.php*/
 
 /*Stilsättning för bilder i karusellen och korten*/
-img:hover {
+.browse-page img:hover {
     transform: scale(1.05);
     transition: 0.3s;
     cursor: pointer;
@@ -26,7 +26,7 @@ img:hover {
 }
 
 /*Stilsättning för korten som visar designerportföljerna*/
-.card {
+.browse-page .card {
     border: none;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     margin-top: 20px;

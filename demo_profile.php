@@ -14,25 +14,31 @@ require_once 'assets/includes/header.php';
             <div class="row">
                 <div class="col-md-3">
                     <img src="assets/images/profile-pic.jpg" width="120" height="120" class="rounded-circle" alt="Profile picture">
-                    <h1 class="pt-3">Full name</h1>
+                    <h1 class="pt-3">Vincent Miller</h1>
                     <p class="text-muted">
-                        <i class="text-warning fa-solid fa-star"></i><span class="ms-1">0.0</span>
+                        <i class="text-warning fa-solid fa-star"></i><span class="ms-1">4.8</span>
                     </p>
-                    <p><i class="fa-solid fa-briefcase"></i><span class="ms-1">Profession</span></p>
-                    <p><i class="fa-solid fa-location-dot"></i><span class="ms-1">Location</span></p>
+                    <p><i class="fa-solid fa-briefcase"></i><span class="ms-1">Illustrator & Graphic Designer</span></p>
+                    <p><i class="fa-solid fa-location-dot"></i><span class="ms-1">Brooklyn, New York</span></p>
 
                     
-                
                         <?php
-                        //logged in: can edit
+                        // Check if the user is logged in
                         if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
-                            echo '<a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-floppy-disk"></i><span class="ms-1">Save Changes</span></a>';                 
+                            // Show edit button for logged-in users
+                            echo '<div class="mt-3">
+                                    <a href="#" class="btn btn-secondary"><i class="fa-solid fa-pen"></i><span class="ms-1">Edit Profile</span></a>
+                                    </div>';
 
                         } else {
-                            //not logged in: can't access this page
-                            
+                            // Show follow and contact buttons for guests
+                            echo '<div class="mt-3">
+                                    <a href="#" class="btn btn-primary me-2"><i class="fa-solid fa-user-plus"></i><span class="ms-1">Follow</span></a>
+                                    <a href="#" class="btn btn-primary"><i class="fa-solid fa-envelope"></i><span class="ms-1">Contact</span></a>
+                                  </div>';
                         }
                         ?>
+                    
                     
                 </div>
 

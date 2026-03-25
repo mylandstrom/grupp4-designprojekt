@@ -1,6 +1,8 @@
 <?php
 //  initerar sessionshantering s. 82-85 i Kurslitteratur
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (isset($_POST['submit'])) {
     $errors  =  array();
     if (

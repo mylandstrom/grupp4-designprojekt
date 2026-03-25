@@ -1,12 +1,5 @@
 <?php
-//start session to check login status
-session_start();
-
-//include database connection
-require_once 'db.php';
-//showing errors
-require_once 'assets/includes/display_errors.php';
-//include header 
+//includes header
 require_once 'assets/includes/header.php';
 ?>
 

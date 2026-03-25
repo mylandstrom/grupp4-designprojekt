@@ -1,3 +1,19 @@
+<?php
+//session management
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+//show errors for debugging
+require_once 'assets/includes/display_errors.php';
+//includes db connection
+require_once 'assets/config/db.php';
+//login data to db
+require_once 'assets/functions/session.login.php';
+//process uploaded photos
+require_once 'assets/functions/photo.upload.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="sv">
 
