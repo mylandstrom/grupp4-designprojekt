@@ -1,8 +1,6 @@
 <?php
 // funktion av att kunna logga in
 session_start();
-//include database connection
-require_once 'db.php';
 //showing errors
 require_once 'assets/includes/display_errors.php';
 //login data to database

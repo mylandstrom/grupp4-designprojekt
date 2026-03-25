@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Make header independent of include order (e.g. pages that include header before db.php).
 if (!isset($dbh)) {
-    require_once __DIR__ . '/../../db.php';
+    require_once __DIR__ . '/../config/db.php';
 }
 ?>
 
