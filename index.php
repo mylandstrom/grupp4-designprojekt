@@ -2,7 +2,7 @@
 // Include header
 require_once 'assets/includes/header.php';
 // Include database connection
-require_once 'db.php';
+require_once 'assets/config/db.php';
 // Show errors
 require_once 'assets/includes/display_errors.php';
 

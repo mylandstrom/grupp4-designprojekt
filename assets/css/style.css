@@ -49,7 +49,7 @@
 }
 
 /*Stilsättning för korten som visar designerportföljerna*/
-.card {
+.browse-page .card {
     border: none;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     margin-top: 20px;

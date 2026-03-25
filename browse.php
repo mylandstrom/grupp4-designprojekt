@@ -118,6 +118,9 @@ foreach ($designers as $index => $designer) {
     <!-- Footer -->
     <?php require_once 'assets/includes/footer.php'; ?>
 
+                        <!-- Script till Bootstrap 5.3.2, som behövs för att karusellen ska fungera. -->
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 </body>
 
 </html>
