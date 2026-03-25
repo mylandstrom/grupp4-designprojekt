@@ -51,14 +51,14 @@ require_once 'assets/includes/display_errors.php';
                     <div class="flex-shrink-0" style="width: 350px;">
                         <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
                             <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
+                            <a href="demo_profile.php" class="text-decoration-none">
                                 <img src="assets/Images/portfolio.exempel1.jpg" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
                             </a>
                             <!-- TITLE AND PROFILE ICON -->
                             <div class="d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Portfolio Title</h5>
                                 <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
+                                <a href="demo_profile.php" class="text-dark">
                                     <!-- fa-2x makes the icon twice as large -->
                                     <i class="fa-regular fa-circle-user fa-2x"></i>
                                 </a>
@@ -70,14 +70,14 @@ require_once 'assets/includes/display_errors.php';
                     <div class="flex-shrink-0" style="width: 350px;">
                         <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
                             <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
+                            <a href="demo_profile.php" class="text-decoration-none">
                                 <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
                             </a>
                             <!-- TITLE AND PROFILE ICON -->
                             <div class="d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Portfolio Title</h5>
                                 <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
+                                <a href="demo_profile.php" class="text-dark">
                                     <!-- fa-2x makes the icon twice as large -->
                                     <i class="fa-regular fa-circle-user fa-2x"></i>
                                 </a>
@@ -89,14 +89,14 @@ require_once 'assets/includes/display_errors.php';
                     <div class="flex-shrink-0" style="width: 350px;">
                         <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
                             <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
+                            <a href="demo_profile.php" class="text-decoration-none">
                                 <img src="assets/Images/portfolio.exempel3.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
                             </a>
                             <!-- TITLE AND PROFILE ICON -->
                             <div class="d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Portfolio Title</h5>
                                 <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
+                                <a href="demo_profile.php" class="text-dark">
                                     <!-- fa-2x makes the icon twice as large -->
                                     <i class="fa-regular fa-circle-user fa-2x"></i>
                                 </a>
@@ -108,14 +108,14 @@ require_once 'assets/includes/display_errors.php';
                     <div class="flex-shrink-0" style="width: 350px;">
                         <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
                             <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
+                            <a href="demo_profile.php" class="text-decoration-none">
                                 <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
                             </a>
                             <!-- TITLE AND PROFILE ICON -->
                             <div class="d-flex align-items-center justify-content-between">
                                 <h5 class="mb-0">Portfolio Title</h5>
                                 <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
+                                <a href="demo_profile.php" class="text-dark">
                                     <!-- fa-2x makes the icon twice as large -->
                                     <i class="fa-regular fa-circle-user fa-2x"></i>
                                 </a>
