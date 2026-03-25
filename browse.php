@@ -1,7 +1,7 @@
 <?php
 // browse.php - Page to browse designer portfolios
 require_once 'assets/includes/header.php';
-require_once 'db.php';
+
 
 // Get all designers
 $stmt = $dbh->prepare("SELECT * FROM designers");
