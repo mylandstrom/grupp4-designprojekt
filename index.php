@@ -5,12 +5,72 @@ require_once 'assets/includes/header.php';
 require_once 'assets/config/db.php';
 // Show errors
 require_once 'assets/includes/display_errors.php';
+
+$currentUserId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+
+$featuredProfiles = [];
+$featuredStmt = $dbh->prepare(
+    "SELECT
+        u.user_id,
+        u.firstname,
+        u.lastname,
+        u.email,
+        COALESCE(
+            (
+                SELECT p.original
+                FROM photos p
+                WHERE p.user_id = u.user_id
+                AND p.original LIKE 'assets/images/uploads/featured/%'
+                ORDER BY p.regdate DESC, p.id DESC
+                LIMIT 1
+            ),
+            COALESCE(
+                (
+                    SELECT p.original
+                    FROM photos p
+                    WHERE p.user_id = u.user_id
+                    AND p.original LIKE 'assets/images/uploads/profiles/%'
+                    ORDER BY p.regdate DESC, p.id DESC
+                    LIMIT 1
+                ),
+                'assets/images/profile-pic.jpg'
+            )
+        ) AS featured_image,
+        COALESCE(
+            (
+                SELECT p.original
+                FROM photos p
+                WHERE p.user_id = u.user_id
+                AND p.original LIKE 'assets/images/uploads/profiles/%'
+                ORDER BY p.regdate DESC, p.id DESC
+                LIMIT 1
+            ),
+            'assets/images/profile-pic.jpg'
+        ) AS profile_image
+    FROM users u
+    ORDER BY CASE WHEN u.user_id = :current_user_id THEN 0 ELSE 1 END, u.regdate DESC
+    LIMIT 8"
+);
+$featuredStmt->bindValue(':current_user_id', $currentUserId, PDO::PARAM_INT);
+$featuredStmt->execute();
+$featuredProfiles = $featuredStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$featuredRowOne = array_slice($featuredProfiles, 0, 4);
+$featuredRowTwo = array_slice($featuredProfiles, 4, 4);
 ?>
 
-<main>
+<style>
+    main.index-page .container {
+        display: block;
+        align-items: initial;
+        justify-content: initial;
+    }
+</style>
+
+<main class="index-page">
     <!-- HERO SECTION -->
     <section class="hero text-center py-5" style="background-color: #dcd1db; font-family: Helvetica, sans-serif;">
-        <div class="container py-5">
+        <div class="container py-5 d-block">
             <h1 class="display-5 mb-3 fw-bold text-dark">
                 Need a creative professional?
             </h1>
@@ -20,7 +80,7 @@ require_once 'assets/includes/display_errors.php';
 
             <!-- BUTTONS -->
             <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #7e1f86; color: white;">Find designers <i class="fa-solid fa-angle-right"></i></a>
-            <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">list a job <i class="fa-solid fa-angle-right"></i></a>
+            <a href="register.php" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">list a job <i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
 
@@ -46,82 +106,31 @@ require_once 'assets/includes/display_errors.php';
                     <!-- pb-3 adds space under the cards -->
                     <!-- gap: 20px sets spacing between each card -->
                     <!-- scrollbar-width: none hides the scrollbar in Firefox -->
-
-                    <!-- PORTFOLIO CARD 1 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="demo_profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel1.jpg" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="demo_profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
+                    <?php if (empty($featuredRowOne)): ?>
+                        <div class="alert alert-info w-100">No featured profiles yet.</div>
+                    <?php else: ?>
+                        <?php foreach ($featuredRowOne as $profile): ?>
+                            <?php
+                            $fullName = trim(($profile['firstname'] ?? '') . ' ' . ($profile['lastname'] ?? ''));
+                            if ($fullName === '') {
+                                $fullName = $profile['email'];
+                            }
+                            ?>
+                            <div class="flex-shrink-0" style="width: 350px;">
+                                <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
+                                    <a href="profile.php?user_id=<?= (int) $profile['user_id']; ?>" class="text-decoration-none">
+                                        <img src="<?= htmlspecialchars($profile['featured_image']); ?>" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="<?= htmlspecialchars($fullName); ?>">
+                                    </a>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h5 class="mb-0"><?= htmlspecialchars($fullName); ?></h5>
+                                        <a href="profile.php?user_id=<?= (int) $profile['user_id']; ?>" class="text-dark">
+                                            <img src="<?= htmlspecialchars($profile['profile_image']); ?>" alt="<?= htmlspecialchars($fullName); ?>" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 2 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="demo_profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="demo_profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 3 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="demo_profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel3.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="demo_profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 4 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="demo_profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="demo_profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                     <!-- RIGHT ARROW BUTTON -->
                     <button class="position-absolute top-50 translate-middle-y border-0"
@@ -159,82 +168,31 @@ require_once 'assets/includes/display_errors.php';
                     <!-- pb-3 adds space under the cards -->
                     <!-- gap: 20px sets spacing between each card -->
                     <!-- scrollbar-width: none hides the scrollbar in Firefox -->
-
-                    <!-- PORTFOLIO CARD 1 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel3.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
+                    <?php if (empty($featuredRowTwo)): ?>
+                        <div class="alert alert-info w-100">No newcomer profiles yet.</div>
+                    <?php else: ?>
+                        <?php foreach ($featuredRowTwo as $profile): ?>
+                            <?php
+                            $fullName = trim(($profile['firstname'] ?? '') . ' ' . ($profile['lastname'] ?? ''));
+                            if ($fullName === '') {
+                                $fullName = $profile['email'];
+                            }
+                            ?>
+                            <div class="flex-shrink-0" style="width: 350px;">
+                                <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
+                                    <a href="profile.php?user_id=<?= (int) $profile['user_id']; ?>" class="text-decoration-none">
+                                        <img src="<?= htmlspecialchars($profile['featured_image']); ?>" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="<?= htmlspecialchars($fullName); ?>">
+                                    </a>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h5 class="mb-0"><?= htmlspecialchars($fullName); ?></h5>
+                                        <a href="profile.php?user_id=<?= (int) $profile['user_id']; ?>" class="text-dark">
+                                            <img src="<?= htmlspecialchars($profile['profile_image']); ?>" alt="<?= htmlspecialchars($fullName); ?>" class="rounded-circle" style="width: 44px; height: 44px; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 2 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 3 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel1.jpg" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PORTFOLIO CARD 4 -->
-                    <div class="flex-shrink-0" style="width: 350px;">
-                        <div class="feature-card border rounded-4 p-3 shadow" style="height: 350px;">
-                            <!-- Clickable image linking to the user's profile -->
-                            <a href="profile.php" class="text-decoration-none">
-                                <img src="assets/Images/portfolio.exempel2.png" class="rounded-3 mb-3" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;" alt="Portfolio 1">
-                            </a>
-                            <!-- TITLE AND PROFILE ICON -->
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h5 class="mb-0">Portfolio Title</h5>
-                                <!-- Link to the profile -->
-                                <a href="profile.php" class="text-dark">
-                                    <!-- fa-2x makes the icon twice as large -->
-                                    <i class="fa-regular fa-circle-user fa-2x"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                     <!-- RIGHT ARROW BUTTON -->
                     <button class="position-absolute top-50 translate-middle-y border-0"
@@ -341,8 +299,8 @@ require_once 'assets/includes/display_errors.php';
             </p>
 
             <!-- BUTTONS -->
-            <a href="#" class="btn btn-sm mt-4 mx-2 rounded-4 text-center" style="width: 180px; height: 45px; background-color: #7e1f86; color: white; line-height: 45px; padding: 0;">Join as a designer <i class="fa-solid fa-angle-right"></i></a>
-            <a href="#" class="btn btn-sm mt-4 mx-2 rounded-4 text-center" style="width: 180px; height: 45px; background-color: #3b3b58; color: white; line-height: 45px; padding: 0;">list a job <i class="fa-solid fa-angle-right"></i></a>
+            <a href="register.php" class="btn btn-sm mt-4 mx-2 rounded-4 text-center" style="width: 180px; height: 45px; background-color: #7e1f86; color: white; line-height: 45px; padding: 0;">Join as a designer <i class="fa-solid fa-angle-right"></i></a>
+            <a href="register.php" class="btn btn-sm mt-4 mx-2 rounded-4 text-center" style="width: 180px; height: 45px; background-color: #3b3b58; color: white; line-height: 45px; padding: 0;">list a job <i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
 </main>

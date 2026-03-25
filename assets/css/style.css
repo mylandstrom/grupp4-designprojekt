@@ -1,28 +1,51 @@
-/* HEADER */
+/*Elins browse.php for the project images, hover and click effects*/
 
-/*Elins CSS till browse.php*/
+.browse-page .container {
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+}
 
-/*Stilsättning för bilder i karusellen och korten*/
-.browse-page img:hover {
-    transform: scale(1.05);
-    transition: 0.3s;
+.browse-page .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Justera card */
+.browse-page .card {
+    margin-top: 0;
+}
+
+.project-img {
     cursor: pointer;
+    object-fit: cover;
+    height: 250px;
+    width: 100%;
+    transition: transform 0.2s, filter 0.2s;
 }
 
-/*Stilsättning för karusellens bilder och kontroller*/
-.carousel img {
-    padding: 4px;
+.project-img:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    filter: invert(1);
-    opacity: 0.8;
+/*Elins for the contact.php page, form styling*/
+.contact-page {
+    margin-bottom: 100px;
 }
 
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-    opacity: 1;
+.contact-wrapper .container {
+    display: block !important;
+    align-items: initial !important;
+    justify-content: initial !important;
+}
+
+.contact-wrapper .contact-page {
+    margin-bottom: 100px;
+}
+
+.contact-wrapper .form-control {
+    max-width: 100%;
 }
 
 /*Stilsättning för korten som visar designerportföljerna*/
@@ -31,4 +54,70 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     margin-top: 20px;
     margin-bottom: 60px;
+}
+
+/*Elsas CSS till auth.php*/
+
+/*Stilsättning för inloggningsformuläret*/
+/*Hero-sektionen*/
+.hero {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 3rem;
+    border-radius: 10px;
+    background-color: #fff;
+    align-items: center;
+}
+
+.form-group {
+    padding: 1rem;
+    text-align: left;
+}
+
+/*Stilsättning för inloggningsknappen*/
+.btn-signin {
+    background-color: #7e1f86;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+}
+
+/*animering för hover på inloggningsknappen*/
+.btn-signin:hover {
+    color: #5a1460;
+    background-color: white;
+    transition-duration: 300ms;
+
+}
+
+/*Stilsättning för inloggningssektionen */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-bottom: 5rem;
+}
+
+.contact-page {
+    margin-bottom: 100px;
 }
