@@ -1,6 +1,5 @@
 <?php
 require_once 'assets/includes/header.php';
-require_once 'db.php';
 
 // Control designer_id
 if (!isset($_GET['designer_id'])) {
@@ -33,16 +32,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- Protect contact form -->
+<!-- Contact designer and profile image -->
 <div class="contact-wrapper">
     <div class="container mt-5 contact-page">
-        <h2>Contact <?= htmlspecialchars($designer['name']); ?></h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="m-0">Contact <?= htmlspecialchars($designer['name']); ?></h2>
 
+            <?php if (!empty($designer['profile_image'])): ?>
+                <img src="<?= htmlspecialchars($designer['profile_image']); ?>"
+                    alt="<?= htmlspecialchars($designer['name']); ?> profilbild"
+                    class="img-fluid rounded-circle"
+                    style="width:60px; height:60px; object-fit:cover;">
+            <?php endif; ?>
+        </div>
+
+        <!-- Message sent confirmation -->
         <?php if ($messageSent): ?>
             <div class="alert alert-success">Meddelandet skickades!</div>
             <a href="browse.php" class="btn btn-secondary">Tillbaka till Designers</a>
         <?php else: ?>
             <form method="POST">
+
+                <!-- Contact form -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Your Name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -62,4 +73,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
+<!-- Footer -->
 <?php require_once 'assets/includes/footer.php'; ?>
