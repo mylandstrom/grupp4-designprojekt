@@ -134,7 +134,7 @@ require_once 'assets/includes/header.php';
                             </a>
                         </div>
                         <div class="col">
-                            <a href="portfolio.php" class="card-link">
+                            <a href="demo_portfolio.php" class="card-link">
                                 <div class="card">
                                     <img src="assets/images/pic9.jpg" width="350" height="150" class="card-img-top border-bottom" alt="Illustration 1">
                                     <div class="card-body">
