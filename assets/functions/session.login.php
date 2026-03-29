@@ -1,4 +1,5 @@
 <?php
+require_once 'assets/config/db.php';
 //  initerar sessionshantering s. 82-85 i Kurslitteratur
 if (isset($_POST['login'])) {
     $errors  =  array();

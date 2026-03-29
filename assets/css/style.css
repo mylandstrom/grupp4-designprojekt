@@ -1,5 +1,8 @@
-/*Elins browse.php for the project images, hover and click effects*/
+body {
+    font-family: Helvetica;
+}
 
+/*Elins styling for browse.php - project images, hover and click effects*/
 .browse-page .container {
     display: block !important;
     align-items: initial !important;
@@ -11,7 +14,6 @@
     flex-wrap: wrap;
 }
 
-/* Justera card */
 .browse-page .card {
     margin-top: 0;
 }
@@ -24,12 +26,18 @@
     transition: transform 0.2s, filter 0.2s;
 }
 
+.profile-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
 .project-img:hover {
     transform: scale(1.05);
     filter: brightness(0.9);
 }
 
-/*Elins for the contact.php page, form styling*/
+/*Elins styling for the contact.php page - form styling*/
 .contact-page {
     margin-bottom: 100px;
 }
@@ -48,7 +56,6 @@
     max-width: 100%;
 }
 
-/*Stilsättning för korten som visar designerportföljerna*/
 .browse-page .card {
     border: none;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -66,7 +73,7 @@
     text-align: center;
 }
 
-.container {
+.auth-page .container {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -120,4 +127,57 @@ fieldset {
 
 .contact-page {
     margin-bottom: 100px;
+}
+
+
+/* My's CSS for profile.php */
+.profile-page .btn-primary {
+    background-color: #7a5980
+}
+
+.profile-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.profile-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for portfolio.php */
+.portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.portfolio-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for edit-portfolio.php */
+.edit-portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.edit-portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.edit-portfolio-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for add-portfolio.php */
+.add-portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.add-portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.add-portfolio-page a:hover {
+    background-color: #5a1460 !important;
 }
