@@ -116,8 +116,7 @@ require_once 'assets/includes/header.php';
 
                     <textarea name="description_text[]" 
                             class="form-control mb-2" 
-                            placeholder="Description">
-                    </textarea>
+                            placeholder="Description"></textarea>
 
                 </div>
 
