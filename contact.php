@@ -36,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="contact-wrapper">
     <div class="container mt-5 contact-page">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="m-0">Contact <?= htmlspecialchars($designer['name']); ?></h2>
+            <h2 class="m-0">Contact <?= $designer['name']; ?></h2>
 
             <?php if (!empty($designer['profile_image'])): ?>
-                <img src="<?= htmlspecialchars($designer['profile_image']); ?>"
-                    alt="<?= htmlspecialchars($designer['name']); ?> profilbild"
+                <img src="<?= $designer['profile_image']; ?>"
+                    alt="<?= $designer['name']; ?> profilbild"
                     class="img-fluid rounded-circle"
                     style="width:60px; height:60px; object-fit:cover;">
             <?php endif; ?>
