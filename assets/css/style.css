@@ -2,8 +2,7 @@ body {
     font-family: Helvetica;
 }
 
-/*Elins browse.php for the project images, hover and click effects*/
-
+/*Elins styling for browse.php - project images, hover and click effects*/
 .browse-page .container {
     display: block !important;
     align-items: initial !important;
@@ -15,7 +14,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Justera card */
 .browse-page .card {
     margin-top: 0;
 }
@@ -28,12 +26,18 @@ body {
     transition: transform 0.2s, filter 0.2s;
 }
 
+.profile-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
 .project-img:hover {
     transform: scale(1.05);
     filter: brightness(0.9);
 }
 
-/*Elins for the contact.php page, form styling*/
+/*Elins styling for the contact.php page - form styling*/
 .contact-page {
     margin-bottom: 100px;
 }
@@ -52,7 +56,6 @@ body {
     max-width: 100%;
 }
 
-/*Stilsättning för korten som visar designerportföljerna*/
 .browse-page .card {
     border: none;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
