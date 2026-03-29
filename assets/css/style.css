@@ -1,3 +1,7 @@
+body {
+    font-family: Helvetica;
+}
+
 /*Elins browse.php for the project images, hover and click effects*/
 
 .browse-page .container {
@@ -66,7 +70,7 @@
     text-align: center;
 }
 
-.container {
+.auth-page .container {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -120,4 +124,57 @@ fieldset {
 
 .contact-page {
     margin-bottom: 100px;
+}
+
+
+/* My's CSS for profile.php */
+.profile-page .btn-primary {
+    background-color: #7a5980
+}
+
+.profile-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.profile-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for portfolio.php */
+.portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.portfolio-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for edit-portfolio.php */
+.edit-portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.edit-portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.edit-portfolio-page a:hover {
+    background-color: #5a1460 !important;
+}
+
+/* My's CSS for add-portfolio.php */
+.add-portfolio-page .btn-primary {
+    background-color: #7a5980
+}
+
+.add-portfolio-page .btn-secondary {
+    background-color: #3b3b58
+}
+
+.add-portfolio-page a:hover {
+    background-color: #5a1460 !important;
 }

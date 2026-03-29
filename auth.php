@@ -24,7 +24,7 @@ require_once 'assets/includes/header.php';
 </head>
 
 <body>
-
+<div class="auth-page">
     <style>
         /* Keep hero text centered like the register page without affecting other pages. (antog att den skulle vara centrerad:)*/
         .login-page .login-hero {
@@ -73,6 +73,7 @@ require_once 'assets/includes/header.php';
             <?php
             require_once 'assets/includes/footer.php';
             ?>
+            </div>
 </body>
 
 </html>

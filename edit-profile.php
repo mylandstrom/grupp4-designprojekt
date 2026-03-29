@@ -9,8 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 $userId = (int) $_SESSION['user_id'];
 $errors = [];
 $success = false;
-$defaultProfileImage = 'assets/images/profile-pic.jpg';
+$defaultProfileImage = 'assets/images/default-pp.png';
 $currentProfileImage = $defaultProfileImage;
+
+$defaultHeaderImage = 'assets/images/default-header.jpg';
+$currentHeaderImage = $defaultHeaderImage;
+
 $defaultFeaturedImage = 'assets/images/profile-pic.jpg';
 $currentFeaturedImage = $defaultFeaturedImage;
 
@@ -32,6 +36,15 @@ $photoSelect->execute();
 $photoRow = $photoSelect->fetch(PDO::FETCH_ASSOC);
 if ($photoRow && !empty($photoRow['original'])) {
     $currentProfileImage = $photoRow['original'];
+}
+
+// Load latest uploaded header image for preview.
+$headerSelect = $dbh->prepare("SELECT original FROM photos WHERE user_id = :user_id AND original LIKE 'assets/images/uploads/headers/%' ORDER BY regdate DESC, id DESC LIMIT 1");
+$headerSelect->bindValue(':user_id', $userId, PDO::PARAM_INT);
+$headerSelect->execute();
+$headerRow = $headerSelect->fetch(PDO::FETCH_ASSOC);
+if ($headerRow && !empty($headerRow['original'])) {
+    $currentHeaderImage = $headerRow['original'];
 }
 
 // Load latest uploaded featured card image for preview.
@@ -73,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newPassword = trim($_POST['new_password'] ?? '');
         $confirmNewPassword = trim($_POST['confirm_new_password'] ?? '');
         $uploadedProfilePath = null;
+        $uploadedHeaderPath = null;
         $uploadedFeaturedPath = null;
 
         if ($firstName === '' || $lastName === '' || $email === '') {
@@ -144,6 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Separate upload handlers so profile image and featured card image can be managed independently.
         $uploadedProfilePath = $uploadImage('profile_image', 'profiles', 'Profile image');
+        $uploadedHeaderPath = $uploadImage('header_image', 'headers', 'Header image');
         $uploadedFeaturedPath = $uploadImage('featured_card_image', 'featured', 'Featured card image');
 
         // Password change is optional, but if one field is used then all are required.
@@ -204,22 +219,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($uploadedProfilePath !== null) {
                     $insertPhoto = $dbh->prepare(
-                        'INSERT INTO photos (user_id, original, thumb, regdate) VALUES (:user_id, :original, :thumb, NOW())'
+                        'INSERT INTO photos (user_id, original, thumb, header, regdate) VALUES (:user_id, :original, :thumb, :header, NOW())'
                     );
                     $insertPhoto->bindValue(':user_id', $userId, PDO::PARAM_INT);
                     $insertPhoto->bindValue(':original', $uploadedProfilePath);
                     $insertPhoto->bindValue(':thumb', $uploadedProfilePath);
+                    $insertPhoto->bindValue(':header', $uploadedProfilePath);
                     $insertPhoto->execute();
                     $currentProfileImage = $uploadedProfilePath;
                 }
 
+                if ($uploadedHeaderPath !== null) {
+                    $insertHeaderPhoto = $dbh->prepare(
+                        'INSERT INTO photos (user_id, original, thumb, header, regdate) VALUES (:user_id, :original, :thumb, :header, NOW())'
+                    );
+                    $insertHeaderPhoto->bindValue(':user_id', $userId, PDO::PARAM_INT);
+                    $insertHeaderPhoto->bindValue(':original', $uploadedHeaderPath);
+                    $insertHeaderPhoto->bindValue(':thumb', $uploadedHeaderPath);
+                    $insertHeaderPhoto->bindValue(':header', $uploadedHeaderPath);
+                    $insertHeaderPhoto->execute();
+                    $currentHeaderImage = $uploadedHeaderPath;
+                }
+
                 if ($uploadedFeaturedPath !== null) {
                     $insertFeaturedPhoto = $dbh->prepare(
-                        'INSERT INTO photos (user_id, original, thumb, regdate) VALUES (:user_id, :original, :thumb, NOW())'
+                        'INSERT INTO photos (user_id, original, thumb, header, regdate) VALUES (:user_id, :original, :thumb, :header, NOW())'
                     );
                     $insertFeaturedPhoto->bindValue(':user_id', $userId, PDO::PARAM_INT);
                     $insertFeaturedPhoto->bindValue(':original', $uploadedFeaturedPath);
                     $insertFeaturedPhoto->bindValue(':thumb', $uploadedFeaturedPath);
+                    $insertFeaturedPhoto->bindValue(':header', $uploadedFeaturedPath);
                     $insertFeaturedPhoto->execute();
                     $currentFeaturedImage = $uploadedFeaturedPath;
                 }
@@ -234,9 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
-
-<?php require_once 'assets/includes/header.php'; ?>
+require_once 'assets/includes/header.php'; ?>
 
 <style>
     .edit-profile-page {
@@ -288,12 +315,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="mb-3 text-center">
-                    <img src="<?= htmlspecialchars($currentFeaturedImage); ?>" alt="Current featured card image" class="rounded-3" style="width: 160px; height: 110px; object-fit: cover;">
+                    <img src="<?= htmlspecialchars($currentHeaderImage); ?>" alt="Current header image" class="rounded-3" style="width: 300px; height: 110px; object-fit: cover;">
                 </div>
 
                 <div class="mb-3">
-                    <label for="featured_card_image" class="form-label">Featured card image (JPG, PNG, WEBP)</label>
-                    <input id="featured_card_image" name="featured_card_image" type="file" class="form-control" accept="image/jpeg,image/png,image/webp">
+                    <label for="header_image" class="form-label">Header image (JPG, PNG, WEBP)</label>
+                    <input id="header_image" name="header_image" type="file" class="form-control" accept="image/jpeg,image/png,image/webp">
                 </div>
 
                 <div class="mb-3">
@@ -329,7 +356,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="confirm_new_password" class="form-label">Confirm new password</label>
                     <input id="confirm_new_password" name="confirm_new_password" type="password" class="form-control">
                 </div>
-
+                
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a href="profile.php" class="btn btn-secondary">Back</a>
@@ -351,4 +378,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
 </main>
 
-<?php require_once 'assets/includes/footer.php'; ?>
+<?php
+require_once 'assets/includes/footer.php';
+?>
