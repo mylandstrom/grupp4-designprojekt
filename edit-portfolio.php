@@ -221,8 +221,7 @@ require_once 'assets/includes/header.php';
 
                         <textarea name="description_text[]" 
                                   class="form-control mb-2" 
-                                  placeholder="Description"><?= htmlspecialchars($portfolio['description_text'] ?? ''); ?>
-                        </textarea>
+                                  placeholder="Description"><?= htmlspecialchars($portfolio['description_text'] ?? ''); ?></textarea>
 
                         <p class="card-text">
                             <small class="text-body-secondary float-end">
