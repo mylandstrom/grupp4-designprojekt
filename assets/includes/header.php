@@ -3,6 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Ensure redirects in included pages still work, even if HTML has already started.
+if (!headers_sent()) {
+    ob_start();
+}
+
 // Make header independent of include order (e.g. pages that include header before db.php).
 if (!isset($dbh)) {
     require_once __DIR__ . '/../config/db.php';
@@ -74,11 +79,6 @@ if (!isset($dbh)) {
                         Portfolios
                     </a>
                 </li>
-                <li class="nav-item mx-2">
-                    <a href="#" class="nav-link <?php echo ($current_page == 'job-listing.php') ? 'active text-white' : ''; ?>"
-                        style="<?php echo ($current_page == 'job-listing.php') ? 'font-weight: bold;' : 'color: rgba(255, 255, 255, 0.75);'; ?>">
-                        Job listing
-                    </a>
                 </li>
                 <li class="nav-item mx-2">
                     <a href="#site-footer" class="nav-link"

@@ -63,20 +63,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($deletePassword === '') {
             $errors[] = 'Enter your password to delete your account.';
         } else {
-            // Delete only if password matches current user.
-            $delete = $dbh->prepare('DELETE FROM users WHERE user_id = :user_id AND password = :password');
-            $delete->bindValue(':user_id', $userId, PDO::PARAM_INT);
-            $delete->bindValue(':password', $deletePassword);
-            $delete->execute();
+            // Verify password first (works for plain text and hashed passwords).
+            $passwordCheck = $dbh->prepare('SELECT password FROM users WHERE user_id = :user_id');
+            $passwordCheck->bindValue(':user_id', $userId, PDO::PARAM_INT);
+            $passwordCheck->execute();
+            $storedPassword = $passwordCheck->fetchColumn();
 
-            if ($delete->rowCount() === 1) {
-                session_unset();
-                session_destroy();
-                header('Location: index.php?action=account_deleted');
-                exit();
+            if (!$storedPassword || (!(password_verify($deletePassword, $storedPassword) || $deletePassword === $storedPassword))) {
+                $errors[] = 'Password is incorrect. Account was not deleted.';
+            } else {
+                $delete = $dbh->prepare('DELETE FROM users WHERE user_id = :user_id');
+                $delete->bindValue(':user_id', $userId, PDO::PARAM_INT);
+                $delete->execute();
+
+                if ($delete->rowCount() === 1) {
+                    session_unset();
+                    session_destroy();
+                    header('Location: index.php?action=account_deleted');
+                    exit();
+                }
+
+                $errors[] = 'Could not delete account at this time. Please try again later.';
             }
-
-            $errors[] = 'Password is incorrect. Account was not deleted.';
         }
     } else {
         $firstName = trim($_POST['first_name'] ?? '');
@@ -263,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-require_once 'assets/includes/header.php'; ?>
+?>
 
 <style>
     .edit-profile-page {
@@ -356,7 +364,7 @@ require_once 'assets/includes/header.php'; ?>
                     <label for="confirm_new_password" class="form-label">Confirm new password</label>
                     <input id="confirm_new_password" name="confirm_new_password" type="password" class="form-control">
                 </div>
-                
+
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a href="profile.php" class="btn btn-secondary">Back</a>

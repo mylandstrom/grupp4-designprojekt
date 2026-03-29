@@ -79,8 +79,8 @@ $featuredRowTwo = array_slice($featuredProfiles, 4, 4);
             </p>
 
             <!-- BUTTONS -->
-            <a href="#" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #7e1f86; color: white;">Find designers <i class="fa-solid fa-angle-right"></i></a>
-            <a href="register.php" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">list a job <i class="fa-solid fa-angle-right"></i></a>
+            <a href="browse.php" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #7e1f86; color: white;">Find designers <i class="fa-solid fa-angle-right"></i></a>
+            <a href="register.php" class="btn btn- btn-lg mt-4 mx-2 rounded-4" style="width: 200px; background-color: #3b3b58; color: white;">List a job <i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
 
@@ -216,7 +216,7 @@ $featuredRowTwo = array_slice($featuredProfiles, 4, 4);
                 </style>
 
                 <!-- Read more button -->
-                <a href="#" class="btn btn-dark btn-lg text-light mt-3 mb-5 mx-4 rounded-3">
+                <a href="browse.php" class="btn btn-dark btn-lg text-light mt-3 mb-5 mx-4 rounded-3">
                     More... <i class="fa-solid fa-angle-right"></i>
                 </a>
             </div>
